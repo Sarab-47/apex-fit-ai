@@ -1,0 +1,36 @@
+/* Note: Inter font is imported via next/font/google in layout.tsx */
+@import "tailwindcss";
+
+:root {
+  --background: #0A0B0D;
+  --surface: #141619;
+  --border: rgba(255, 255, 255, 0.08);
+  --accent-start: #3B82F6;
+  --accent-end: #60A5FA;
+  --text-primary: #FFFFFF;
+  --text-secondary: #9CA3AF;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-accent-start: var(--accent-start);
+  --color-accent-end: var(--accent-end);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  
+  --font-body: var(--font-inter);
+}
+
+body {
+  background: var(--background);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+}
+
+.font-heading {
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
