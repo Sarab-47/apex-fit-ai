@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import WorkoutLogger from './WorkoutLogger';
+import ProgressChart from './ProgressChart';
 import { getIcon } from '@/lib/exerciseIcons';
 
 export default function WorkoutSection({ 
@@ -14,6 +15,7 @@ export default function WorkoutSection({
 }) {
   const [activeDayIndex, setActiveDayIndex] = useState(initialDayIndex);
   const [expandedExercise, setExpandedExercise] = useState<string | null>(null);
+  const [expandedProgress, setExpandedProgress] = useState<string | null>(null);
 
   if (!schedule || schedule.length === 0) return <p className="text-gray-400">Unable to load workout plan.</p>;
 
@@ -54,12 +56,24 @@ export default function WorkoutSection({
                     <p className="text-[10px] text-gray-500 uppercase tracking-widest">{ex.target_muscle}</p>
                   </div>
                 </div>
-                <div className="text-right">
+                <div className="text-right flex items-center gap-2">
+                  <button 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setExpandedProgress(expandedProgress === ex.exercise_name ? null : ex.exercise_name);
+                    }}
+                    className="text-xs text-[#3B82F6] hover:text-white transition-colors"
+                  >
+                    {expandedProgress === ex.exercise_name ? 'Hide Progress' : 'View Progress'}
+                  </button>
                   <p className="font-black text-xl text-white">{ex.sets_reps}</p>
                 </div>
               </div>
               {expandedExercise === ex.exercise_name && (
                 <WorkoutLogger exercise_name={ex.exercise_name} />
+              )}
+              {expandedProgress === ex.exercise_name && (
+                <ProgressChart exercise_name={ex.exercise_name} />
               )}
             </div>
           );
