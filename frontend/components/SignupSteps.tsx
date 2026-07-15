@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 type OnboardingData = {
   email: string;
@@ -38,15 +39,15 @@ export default function SignupSteps() {
   const validateStep1 = () => {
     const { email, password, age, weight_kg, height_cm, gender } = formData;
     if (!email || !password || age === '' || weight_kg === '' || height_cm === '' || !gender) {
-      alert('All fields are required.');
+      toast.error('All fields are required.');
       return false;
     }
     if (password.length > 72) {
-      alert('Password must be 72 characters or less.');
+      toast.error('Password must be 72 characters or less.');
       return false;
     }
     if (typeof age !== 'number' || age < 13 || age > 100) {
-      alert('Please enter a valid age (13-100).');
+      toast.error('Please enter a valid age (13-100).');
       return false;
     }
     return true;
@@ -55,15 +56,15 @@ export default function SignupSteps() {
   const validateStep2 = () => {
     const { training_experience_months, days_per_week } = formData;
     if (training_experience_months === '' || days_per_week === '') {
-      alert('All fields are required.');
+      toast.error('All fields are required.');
       return false;
     }
     if (typeof training_experience_months !== 'number' || training_experience_months < 0) {
-      alert('Experience must be 0 or greater.');
+      toast.error('Experience must be 0 or greater.');
       return false;
     }
     if (typeof days_per_week !== 'number' || days_per_week < 1 || days_per_week > 7) {
-      alert('Days per week must be between 1 and 7.');
+      toast.error('Days per week must be between 1 and 7.');
       return false;
     }
     return true;
@@ -84,10 +85,10 @@ export default function SignupSteps() {
         window.location.href = '/dashboard';
       } else {
         const err = await res.json();
-        alert(err.error || 'Signup failed');
+        toast.error(err.error || 'Signup failed');
       }
     } catch (error) {
-      alert('Something went wrong, please try again.');
+      toast.error('Something went wrong, please try again.');
     } finally {
       setIsSubmitting(false);
     }

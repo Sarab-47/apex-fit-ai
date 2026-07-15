@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import SignupSteps from '@/components/SignupSteps';
 
 export default function AuthPage() {
@@ -21,12 +22,13 @@ export default function AuthPage() {
 
       if (res.ok) {
         window.location.href = '/dashboard';
-      } else {
-        alert('Login failed');
-      }
-    } catch (error) {
-      alert('Something went wrong');
-    } finally {
+        } else {
+          toast.error('Login failed');
+        }
+      } catch (error) {
+        toast.error('Something went wrong');
+      } finally {
+
       setIsSubmitting(false);
     }
   };

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-hot-toast';
 
 export default function MealForm() {
   const [formData, setFormData] = useState({ name: '', calories: '', protein_g: '', carbs_g: '', fat_g: '' });
@@ -29,7 +30,7 @@ export default function MealForm() {
       router.refresh();
       setFormData({ name: '', calories: '', protein_g: '', carbs_g: '', fat_g: '' });
     } else {
-      alert('Failed to log meal. Please try again.');
+      toast.error('Failed to log meal. Please try again.');
     }
   };
 
